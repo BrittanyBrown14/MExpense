@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wetasphalt_dark"
+    tools:context=".AddExpenseActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="380dp"
+        android:layout_height="520dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <EditText
+                android:id="@+id/expenseInputIDText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="@string/expenses_tripID"
+                android:ems="3"
+                android:inputType="number"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+            <Spinner
+                android:id="@+id/expenseTripSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:entries="@array/expense_types"
+                android:textColor="@color/clouds_light"/>
+
+            <EditText
+                android:id="@+id/expenseOtherText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="@string/expenses_otherType"
+                android:inputType="textPersonName"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/expenseCurrencyText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="1"
+                android:hint="@string/expenses_currency"
+                android:inputType="text"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+            <EditText
+                android:id="@+id/expenseAmountText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="@string/expenses_amount"
+                android:inputType="numberDecimal"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+            <EditText
+                android:id="@+id/expenseDateText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/expenses_date"
+                android:inputType="date"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/expenseTimeText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="5"
+                android:textSize="16sp"
+                android:textColor="@color/clouds_light" />
+
+            <EditText
+                android:id="@+id/expenseCommentsText"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="@string/expenses_comments"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="17dp"
+        android:background="@color/amethyst_accent"
+        android:onClick="saveExpenseDialog"
+        android:text="@string/trip_save"
+        android:textColor="@color/clouds_light"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/amethyst_accent"
+        android:onClick="Cancel"
+        android:text="@string/trip_cancel"
+        android:textColor="@color/clouds_light"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/saveButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

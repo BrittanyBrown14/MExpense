@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">M-Expense</string>
+
+    <!-- For login page-->
+    <string name="login_page_name">M-Expense Login</string>
+    <string name="login_page_username">Username: * </string>
+    <string name="login_page_company_name">Company Name: * </string>
+    <string name="login_page_password">Password: * </string>
+    <string name="login_page_login_btn">Login: </string>
+
+    <!--For welcome page-->
+    <string name="welcome_page_name">Welcome to M-Expense  </string>
+    <string name="welcome_page_trip_search_btn">Search all trips</string>
+    <string name="welcome_page_trip_add_btn">Add new trip</string>
+    <string name="welcome_page_expense_search_btn">Search all expenses</string>
+    <string name="welcome_page_expense_add_btn">Add new expenses</string>
+
+    <!--For add trip details page-->
+    <string name="trip_name">Trip Name: *</string>
+    <string name="trip_destination">Trip Destination: *</string>
+    <string name="trip_departure_date">Departure Date: 01/01/1900 *</string>
+    <string name="trip_return_date">Return Date: 01/01/1900 *</string>
+    <string name="trip_risk_assessment"> Needs a Risk Assessment? *</string>
+    <string name="trip_description">Trip Description: </string>
+    <string name="trip_isOverseas"> Is this an Overseas Trip? *</string>
+    <string name="trip_transport"> Add the main mode of transport *</string>
+    <string name="trip_yes">Yes</string>
+    <string name="trip_no">No</string>
+    <string name="trip_save">Save</string>
+    <string name="trip_cancel">Cancel</string>
+
+    <!--    For search trips page-->
+    <string name="reset_database">Delete all trips</string>
+    <string name="search_btn">Type to Search</string>
+    <string name="search_data">Search all data</string>
+    <string name="edit_data">Edit this trip</string>
+    <string name="data_change_title">Edit or Delete</string>
+    <string name="data_change_message">Would you like to Edit or Delete this trip?</string>
+    <string name="delete_data">Delete this trip</string>
+    <string name="delete_confirm_title">Trip Deletion Confirmation</string>
+    <string name="delete_confirm_message">Are you sure you want to delete this trip?</string>
+    <string name="delete_all_confirm_title">Delete all Confirmation</string>
+    <string name="delete_all_confirm_message">Are you sure you want to delete all trips?</string>
+    <string name="delete_back">Back</string>
+
+    <!--    For add expenses page-->
+    <string name="expenses_otherType">Please specify other expense type *</string>
+    <string name="expenses_tripID">Please enter your Trip ID *</string>
+    <string name="expenses_currency">Expense currency *</string>
+    <string name="expenses_amount">Add the expense amount *</string>
+    <string name="expenses_date">Date of expense *</string>
+    <string name="expenses_time">Time of expense *</string>
+    <string name="expenses_comments">Additional Comments</string>
+
+    <!--    Dialog Strings-->
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_close">Close</string>
+    <string name="dialog_message">Are you sure want to save?</string>
+    <string name="dialog_title">Save Information</string>
+    <string name="dialog_custom_title">What would you like to change?</string>
+    <!--    <string name="dialog_column_title">What would you like to change?</string>-->
+
+    <!--    For transport spinner population-->
+    <string-array name="transport_options">
+        <item>---</item>
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Underground/Metro</item>
+        <item>Plane</item>
+        <item>Other</item>
+    </string-array>
+
+    <!--    For trip spinner population-->
+    <string-array name="edit_trip_options">
+        <item>Trip Name</item>
+        <item>Trip Destination</item>
+        <item>Departure Date</item>
+        <item>Return Date</item>
+        <item>Risk Assessment</item>
+        <item>Is Overseas</item>
+        <item>Transport Mode</item>
+        <item>Description</item>
+    </string-array>
+
+    <!--    For expense type spinner population-->
+    <string-array name="expense_types">
+        <item>---</item>
+        <item>Food</item>
+        <item>Taxi</item>
+        <item>Accommodation</item>
+        <item>Certification</item>
+        <item>Transport</item>
+        <item>Visa</item>
+        <item>Software Subscription</item>
+    </string-array>
+
+
+</resources>

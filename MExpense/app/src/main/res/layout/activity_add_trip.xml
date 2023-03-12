@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wetasphalt_dark"
+    tools:context=".AddTripActivity">
+
+    <ScrollView
+        android:layout_width="381dp"
+        android:layout_height="530dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <EditText
+                android:id="@+id/editTextTripName"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/trip_name"
+                android:inputType="textPersonName"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+            <EditText
+                android:id="@+id/editTextTripDestination"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/trip_destination"
+                android:inputType="textPersonName"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+            <EditText
+                android:id="@+id/editTextDepartureDate"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/trip_departure_date"
+                android:inputType="date"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint"
+                android:focusable="false"
+                android:maxLength="10"/>
+
+            <EditText
+                android:id="@+id/editTextReturnDate"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/trip_return_date"
+                android:inputType="date"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint"
+                android:focusable="false"
+                android:maxLength="10"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/radioLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/trip_risk_assessment"
+                    android:textColor="@color/clouds_light"
+                    android:textSize="19sp" />
+
+                <RadioButton
+                    android:id="@+id/yesRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip_yes"
+                    android:textColor="@color/clouds_light" />
+
+                <RadioButton
+                    android:id="@+id/noRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip_no"
+                    android:textColor="@color/clouds_light" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/radioLabel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/trip_isOverseas"
+                    android:textColor="@color/clouds_light"
+                    android:textSize="19sp" />
+
+                <RadioButton
+                    android:id="@+id/yesRadioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip_yes"
+                    android:textColor="@color/clouds_light" />
+
+                <RadioButton
+                    android:id="@+id/noRadioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip_no"
+                    android:textColor="@color/clouds_light" />
+
+            </RadioGroup>
+
+            <Spinner
+                android:id="@+id/transportSpinner"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:entries="@array/transport_options"
+                android:isScrollContainer="true"
+                android:scrollIndicators="bottom"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbars="vertical"
+                android:textColor="@color/clouds_light" />
+
+            <EditText
+                android:id="@+id/editTextTripDescription"
+                android:layout_width="370dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/trip_description"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="548dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/amethyst_accent"
+        android:textColor="@color/clouds_light"
+        android:onClick="saveTripDialog"
+        android:text="@string/trip_save"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="548dp"
+        android:layout_marginEnd="296dp"
+        android:background="@color/amethyst_accent"
+        android:textColor="@color/clouds_light"
+        android:onClick="Cancel"
+        android:text="@string/trip_cancel"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="558dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
