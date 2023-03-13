@@ -6,7 +6,7 @@ public class ExpensesModel {
     private String ExpenseCurrency;
     private String ExpenseType;
     private String ExpenseOtherType;
-    private int Amount;
+    private double Amount;
     private String Date;
     private String Time;
     private String Comments;
@@ -14,7 +14,7 @@ public class ExpensesModel {
     public ExpensesModel(){}
 
     public ExpensesModel(int expenseTripID, int expenseID, String expenseCurrency, String expenseType,
-                         String expenseOtherType, int amount, String date, String time, String comments) {
+                         String expenseOtherType, double amount, String date, String time, String comments) {
         ExpenseTripID = expenseTripID;
         ExpenseID = expenseID;
         ExpenseCurrency = expenseCurrency;
@@ -79,11 +79,11 @@ public class ExpensesModel {
         ExpenseOtherType = expenseOtherType;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return Amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         Amount = amount;
     }
 

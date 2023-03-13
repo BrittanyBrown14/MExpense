@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.sax.SAXResult;
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     // For Login DB
     public static final String USER_LOGIN = "User_Login";
@@ -82,12 +80,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createExpenseTableStatement  = "CREATE TABLE IF NOT EXISTS "
                 + EXPENSE_TABLE
-                + " (" + COLUMN_EXPENSE_TRIP_ID + " INTEGER REFERENCES " + TRIP_DETAILS + " (" + COLUMN_TRIP_ID + "), "
+                + " (" + COLUMN_EXPENSE_TRIP_ID + " INTEGER NOT NULL REFERENCES " + TRIP_DETAILS + " (" + COLUMN_TRIP_ID + "), "
                 + COLUMN_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                 + COLUMN_EXPENSE_CURRENCY + " TEXT NOT NULL, "
                 + COLUMN_EXPENSE_TYPE + " TEXT NOT NULL, "
-                + COLUMN_EXPENSE_OTHER_TYPE + " TEXT NOT NULL, "
-                + COLUMN_EXPENSE_AMOUNT + " INTEGER NOT NULL, "
+                + COLUMN_EXPENSE_OTHER_TYPE + " TEXT, "
+                + COLUMN_EXPENSE_AMOUNT + " REAL NOT NULL, "
                 + COLUMN_EXPENSE_DATE + " TEXT NOT NULL, "
                 + COLUMN_EXPENSE_TIME + " TEXT NOT NULL, "
                 + COLUMN_EXPENSE_COMMENTS + " TEXT)";
@@ -202,12 +200,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String column = UserDataDTO.getInstance().getTripDetailsModel().getTripColumnName();
             String dataInfo = UserDataDTO.getInstance().getTripDetailsModel().getUpdateData();
 
-            String idk = " UPDATE " +TRIP_DETAILS+ " SET " +column+ " = " + "\""+dataInfo+ "\""+
+            String editQuery = " UPDATE " +TRIP_DETAILS+ " SET " +column+ " = " + "\""+dataInfo+ "\""+
                     " WHERE " +COLUMN_TRIP_USER_ID+ " IS " +userID+
                     " AND " +COLUMN_TRIP_ID+ " IS " +listID;
 
             SQLiteDatabase db = this.getWritableDatabase();
-            Cursor cursor = db.rawQuery(idk, null);
+            Cursor cursor = db.rawQuery(editQuery, null);
 
             cursor.moveToNext();
             cursor.close();
@@ -238,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // All the database queries for adding, deleting and editing trips
+    // All the database queries for adding, deleting and editing expenses
     public List<ExpensesModel> getAllExpenses()
     {
         int tripID = UserDataDTO.getInstance().getTripDetailsModel().getTripID();
@@ -259,7 +257,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String expenseCurrency = cursor.getString(2);
                 String expenseType = cursor.getString(3);
                 String expenseOtherType = cursor.getString(4);
-                int expenseAmount = cursor.getInt(5);
+                double expenseAmount = cursor.getDouble(5);
                 String expenseDate = cursor.getString(6);
                 String expenseTime = cursor.getString(7);
                 String expenseComments = cursor.getString(8);

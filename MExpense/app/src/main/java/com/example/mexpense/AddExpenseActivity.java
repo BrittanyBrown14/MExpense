@@ -3,6 +3,7 @@ package com.example.mexpense;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,18 +39,20 @@ public class AddExpenseActivity extends AppCompatActivity {
     int tripID;
     int Tempid;
 
-    private Calendar calender = Calendar.getInstance();
-    private Cursor cursor;
+    private final Calendar calender = Calendar.getInstance();
+    private SimpleDateFormat currentTime;
+
 
     DatabaseHelper databaseHelper;
-    SQLiteDatabase sqlDB;
 
+
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
 
-        tripID = UserDataDTO.getInstance().getTripDetailsModel().getTripID();
+        databaseHelper = new DatabaseHelper(AddExpenseActivity.this, "User_Login.db");
 
         expenseSpinner = findViewById(R.id.expenseTripSpinner);
         otherType = findViewById(R.id.expenseOtherText);
@@ -67,14 +70,13 @@ public class AddExpenseActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String spinnerItem = expenseSpinner.getSelectedItem().toString();
-                if (spinnerItem == "Other")
+                if (spinnerItem.equals("Other"))
                 {
                     otherType.setVisibility(View.VISIBLE);
                 }
                 else
                     otherType.setVisibility(View.GONE);
-            }
-
+                }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -108,8 +110,8 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        expenseTime.setText(timeFormat.format(new Date()));
+        currentTime = new SimpleDateFormat("HH:mm");
+        expenseTime.setText(getResources().getString(R.string.expenses_time) + " " +  currentTime.format(new Date()));
     }
 
     public void saveExpenseDialog(View view)
@@ -127,74 +129,73 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     private void saveExpense()
     {
-        if (!areFieldsEmpty(expenseInputID.getText().toString(), expenseAmount.getText().toString(), expenseDate.getText().toString(), expenseTime.getText().toString()))
+        double money = Double.parseDouble(expenseAmount.getText().toString());
+
+        if (!areFieldsEmpty(expenseInputID.getText().toString(), expenseAmount.getText().toString(), expenseDate.getText().toString(), expenseTime.getText().toString())
+                || expenseSpinner.getSelectedItem().toString().equals("---"))
         {
             if (dateFormatValidation(expenseDate.getText().toString()))
             {
-                if (otherType.getVisibility() == View.VISIBLE && otherType.getText().toString().isEmpty())
+                if(dateTimeValidation(expenseDate.getText().toString()))
                 {
-                    Toast.makeText(this, "Please enter all the required details. ", Toast.LENGTH_SHORT).show();
+                    if (otherType.getVisibility() == View.VISIBLE && otherType.getText().toString().isEmpty())
+                    {
+                        Toast.makeText(this, "Please enter all the required details. ", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        ExpensesModel expensesModel;
+                        if (getExpenseTripID(Integer.parseInt(expenseInputID.getText().toString())))
+                        {
+                            tripID = UserDataDTO.getInstance().getExpensesModel().getExpenseTripID();
+
+                            try
+                            {
+                                expensesModel = new ExpensesModel
+                                    (
+                                        tripID,
+                                        -1,
+                                        expenseCurrency.getText().toString(),
+                                        expenseSpinner.getSelectedItem().toString(),
+                                        otherType.getText().toString(),
+                                        money,
+                                        //Integer.parseInt(expenseAmount.getText().toString()),
+                                        expenseDate.getText().toString(),
+                                        currentTime.format(new Date()),
+                                        expenseComments.getText().toString()
+                                    );
+                                try
+                                {
+                                    boolean success = databaseHelper.addExpenseRecord(expensesModel);
+                                    databaseHelper.close();
+                                    if (success) {
+                                        Toast.makeText(getApplicationContext(), "Your expense was saved ", Toast.LENGTH_SHORT).show();
+                                        clearText();
+                                        Cancel();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Your details were not saved. Please try again ", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new RuntimeException(ex);
+                                }
+                            }
+                            catch (Exception ex) {
+                                Toast.makeText(getApplicationContext(), "error:" + ex, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(AddExpenseActivity.this,"There is no trip with this name.\n Please Try Again.",Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
                 else
                 {
-                    ExpensesModel expensesModel;
-                    getTripID(Integer.parseInt(expenseInputID.getText().toString()));
-
-                    try {
-                        expensesModel = new ExpensesModel
-                        (
-                            tripID,
-                            -1,
-                            expenseCurrency.getText().toString(),
-                            expenseSpinner.getSelectedItem().toString(),
-                            otherType.getText().toString(),
-                            Integer.parseInt(expenseAmount.getText().toString()),
-                            expenseDate.getText().toString(),
-                            expenseTime.getText().toString(),
-                            expenseComments.getText().toString()
-                        );
-
-                        try
-                        {
-                            // Opening SQLite database write permission.
-                            sqlDB = databaseHelper.getWritableDatabase();
-                            // Adding search email query to cursor.
-                            cursor = sqlDB.query(DatabaseHelper.EXPENSE_TABLE, null, " " + DatabaseHelper.COLUMN_EXPENSE_TRIP_ID + "=?",new String[]{String.valueOf(expenseInputID)} , null, null, null );
-                            while (cursor.moveToNext()) {
-                                if (cursor.isFirst()) {
-                                    cursor.moveToFirst();
-                                    // Stores allTrips user info with entered email.
-                                    Tempid = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_EXPENSE_TRIP_ID));
-                                    // Closing cursor.
-
-                                    cursor.close();
-                                }
-                            }
-                            // Calling method to check final result ..
-
-                            if(getTripID(Integer.parseInt(expenseInputID.getText().toString())))
-                            {
-                                DatabaseHelper dataBaseHelper = new DatabaseHelper(AddExpenseActivity.this, "User_Login.db");
-
-                                boolean success = dataBaseHelper.addExpenseRecord(expensesModel);
-                                dataBaseHelper.close();
-                                if (success == true) {
-                                    Toast.makeText(getApplicationContext(), "Your trip was saved ", Toast.LENGTH_SHORT).show();
-                                    clearText();
-                                    Cancel();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Your details were not saved. Please try again ", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                    catch (Exception ex) {
-                        Toast.makeText(getApplicationContext(), "error:" + ex, Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(this, "The date must not be before the current date.\n Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
             else
@@ -219,6 +220,8 @@ public class AddExpenseActivity extends AppCompatActivity {
     {
         expenseSpinner.setSelection(0);
         otherType.setText("");
+        expenseInputID.setText("");
+        expenseCurrency.setText("");
         expenseAmount.setText("");
         expenseDate.setText("");
         expenseTime.setText("");
@@ -246,6 +249,25 @@ public class AddExpenseActivity extends AppCompatActivity {
         return false;
     }
 
+    private boolean dateTimeValidation(String date1)
+    {
+        SimpleDateFormat dateVal = new SimpleDateFormat("dd/MM/yyyy");
+        dateVal.setLenient(true);
+
+        boolean value = false;
+        try {
+            if (dateVal.parse(date1).before(new Date())) {
+                value = true;//If start date is before end date
+            }
+            else {
+                value = false; //If start date is after the end date
+            }
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+        return value;
+    }
+
     private void updateText(){
         String myFormat="dd/MM/yyyy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.UK);
@@ -253,17 +275,29 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     }
 
-    public boolean getTripID(int id)
+    public boolean getExpenseTripID(int id)
     {
+        // Opening SQLite database write permission.
+        SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
+        // Adding search email query to cursor.
+        Cursor cursor = sqlDB.query(DatabaseHelper.TRIP_DETAILS, null, " " + DatabaseHelper.COLUMN_TRIP_ID + "=?", new String[]{expenseInputID.getText().toString()}, null, null, null);
+        while (cursor.moveToNext()) {
+            if (cursor.isFirst()) {
+                cursor.moveToFirst();
+                // Stores allTrips user info with entered email.
+                Tempid = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TRIP_ID));
+                // Closing cursor.
+                //getExpenseTripID(Integer.parseInt(expenseInputID.getText().toString()));
+                cursor.close();
+            }
+        }
         if(Tempid == id)
         {
-            UserDataDTO.getInstance().getExpensesModel().setExpenseTripID(tripID);
+            UserDataDTO.getInstance().getExpensesModel().setExpenseTripID(Tempid);
             return true;
         }
         else {
-            Toast.makeText(AddExpenseActivity.this,"There is no trip with this name.\n Please Try Again.",Toast.LENGTH_LONG).show();
             return false;
         }
     }
-
 }

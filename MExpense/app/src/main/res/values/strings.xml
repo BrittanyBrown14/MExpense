@@ -49,7 +49,7 @@
     <string name="expenses_currency">Expense currency *</string>
     <string name="expenses_amount">Add the expense amount *</string>
     <string name="expenses_date">Date of expense *</string>
-    <string name="expenses_time">Time of expense *</string>
+    <string name="expenses_time"> Time of expense: </string>
     <string name="expenses_comments">Additional Comments</string>
 
     <!--    Dialog Strings-->
@@ -93,6 +93,7 @@
         <item>Transport</item>
         <item>Visa</item>
         <item>Software Subscription</item>
+        <item>Other</item>
     </string-array>
 
 

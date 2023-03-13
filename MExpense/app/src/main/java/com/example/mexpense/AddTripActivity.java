@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class AddTripActivity extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class AddTripActivity extends AppCompatActivity {
     RadioButton isOverseasInput;
     Button cancelBtn;
 
-    private Calendar calender = Calendar.getInstance();
+    private final Calendar calender = Calendar.getInstance();
     private int calText;
 
     @SuppressLint("ResourceType")
@@ -158,7 +159,7 @@ public class AddTripActivity extends AppCompatActivity {
 
                         // Change this to be a dialog inviting the user to add an expense
                         // If not, take them back to the welcome page
-                        if (success == true) {
+                        if (success) {
                             Toast.makeText(getApplicationContext(), "Your trip was saved ", Toast.LENGTH_SHORT).show();
                             clearText();
                             Cancel();
@@ -235,11 +236,11 @@ public class AddTripActivity extends AppCompatActivity {
         SimpleDateFormat dateVal = new SimpleDateFormat("dd/MM/yyyy");
         dateVal.setLenient(true);
 
-        boolean value = false;
+        boolean value;
         try {
             if (dateVal.parse(date1).before(dateVal.parse(date2))) {
                 value = true;//If start date is before end date
-            } else if (dateVal.parse(date1).equals(dateVal.parse(date2))) {
+            } else if (Objects.equals(dateVal.parse(date1), dateVal.parse(date2))) {
                 value = true;//If two dates are equal
             } else {
                 value = false; //If start date is after the end date
@@ -250,7 +251,7 @@ public class AddTripActivity extends AppCompatActivity {
         return value;
     }
 
-    public boolean dateFormatValidation(String dateToValidate) {
+    private boolean dateFormatValidation(String dateToValidate) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //To make strict date format validation
