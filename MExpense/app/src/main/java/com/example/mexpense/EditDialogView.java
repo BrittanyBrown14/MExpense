@@ -126,13 +126,13 @@ public class EditDialogView {
 
                 if (success)
                 {
-                    Toast.makeText(dialog.getContext(), "Your edit was saved ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(dialog.getContext(), R.string.dialog_edit_saved, Toast.LENGTH_SHORT).show();
                     databaseHelper.close();
                     dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(dialog.getContext(), "Your edit were not saved. Please try again ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(dialog.getContext(), R.string.dialog_edit_not_saved, Toast.LENGTH_SHORT).show();
 
                 }
 

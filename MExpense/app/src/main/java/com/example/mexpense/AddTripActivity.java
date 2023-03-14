@@ -44,6 +44,7 @@ public class AddTripActivity extends AppCompatActivity {
 
     private final Calendar calender = Calendar.getInstance();
     private int calText;
+    SimpleDateFormat dateVal;
 
     @SuppressLint("ResourceType")
     @Override
@@ -51,6 +52,7 @@ public class AddTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
 
+        dateVal = new SimpleDateFormat("dd/MM/yyyy");
         userID = UserDataDTO.getInstance().getTripDetailsModel().getTripUserID();
 
         // Initializing objects for 'Add trip'
@@ -160,29 +162,29 @@ public class AddTripActivity extends AppCompatActivity {
                         // Change this to be a dialog inviting the user to add an expense
                         // If not, take them back to the welcome page
                         if (success) {
-                            Toast.makeText(getApplicationContext(), "Your trip was saved ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.dialog_trip_saved, Toast.LENGTH_SHORT).show();
                             clearText();
                             Cancel();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Your details were not saved. Please try again ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.dialog_trip_not_saved, Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception ex) {
-                        Toast.makeText(getApplicationContext(), "error:" + ex, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.error_text + " " , Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    Toast.makeText(this, "The return date cannot be before the departure date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.date_invaild, Toast.LENGTH_SHORT).show();
                 }
             }
             else
             {
-                Toast.makeText(this, "The date is not valid. Please try again. \n Use this format: dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.date_format_invaild , Toast.LENGTH_SHORT).show();
             }
         }
         else
         {
-            Toast.makeText(this, "Please enter all Trips the required details. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.details_invaild, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -233,18 +235,14 @@ public class AddTripActivity extends AppCompatActivity {
 
     public boolean dateTimeValidation(String date1, String date2)
     {
-        SimpleDateFormat dateVal = new SimpleDateFormat("dd/MM/yyyy");
         dateVal.setLenient(true);
 
         boolean value;
         try {
-            if (dateVal.parse(date1).before(dateVal.parse(date2))) {
+            //If start date is after the end date
+            if (Objects.requireNonNull(dateVal.parse(date1)).before(dateVal.parse(date2))) {
                 value = true;//If start date is before end date
-            } else if (Objects.equals(dateVal.parse(date1), dateVal.parse(date2))) {
-                value = true;//If two dates are equal
-            } else {
-                value = false; //If start date is after the end date
-            }
+            } else value = Objects.equals(dateVal.parse(date1), dateVal.parse(date2));//If two dates are equal
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
@@ -252,13 +250,11 @@ public class AddTripActivity extends AppCompatActivity {
     }
 
     private boolean dateFormatValidation(String dateToValidate) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //To make strict date format validation
-        formatter.setLenient(true);
+        dateVal.setLenient(true);
         Date parsedDate = null;
         try {
-            parsedDate = formatter.parse(dateToValidate);
+            parsedDate = dateVal.parse(dateToValidate);
             return true;
 
         } catch (Exception exception) {

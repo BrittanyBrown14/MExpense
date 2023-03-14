@@ -8,94 +8,59 @@
     tools:context=".WelcomeActivity">
 
     <Button
+        android:id="@+id/newTripButton"
+        style="@style/Theme.AppCompat.Light.NoActionBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="122dp"
+        android:layout_marginBottom="19dp"
+        android:background="@color/blank"
+        android:onClick="goToPage"
+        android:text="@string/welcome_page_trip_add_btn"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/searchTripButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/searchTripButton"
         style="@style/Theme.AppCompat.Light.NoActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginBottom="165dp"
         android:background="@color/blank"
         android:onClick="goToPage"
         android:text="@string/welcome_page_trip_search_btn"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newExpenseButton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/newExpenseButton"
         style="@style/Theme.AppCompat.Light.NoActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="63dp"
         android:background="@color/blank"
         android:onClick="goToPage"
         android:text="@string/welcome_page_expense_add_btn"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchExpenseButton" />
-
-    <Button
-        android:id="@+id/searchExpenseButton"
-        style="@style/Theme.AppCompat.Light.NoActionBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="408dp"
-        android:background="@color/blank"
-        android:text="@string/welcome_page_expense_search_btn"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985" />
-
-    <Button
-        android:id="@+id/newTripButton"
-        style="@style/Theme.AppCompat.Light.NoActionBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/blank"
-        android:onClick="goToPage"
-        android:text="@string/welcome_page_trip_add_btn"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchTripButton" />
-
-    <ImageButton
-        android:id="@+id/settingButton"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp"
-        android:background="@color/blank"
-        android:scaleType="fitCenter"
-        android:src="@drawable/settings1"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="490dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:textAlignment="center"
         android:textColor="@color/clouds_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/searchExpenseButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_wrapBehaviorInParent="horizontal_only" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

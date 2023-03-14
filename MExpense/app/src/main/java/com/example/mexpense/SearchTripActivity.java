@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -31,19 +30,7 @@ public class SearchTripActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();
-        String currentIntent = extras.getString("tripLayout");
-
-        try {
-            if (currentIntent.equals("trip_search_layout")) {
-                setContentView(R.layout.activity_search);
-            } else {
-                Toast.makeText(this, "error:" + currentIntent, Toast.LENGTH_LONG).show();
-
-            }
-        } catch (Exception ex) {
-            Toast.makeText(this, "error:" + ex, Toast.LENGTH_LONG).show();
-        }
+        setContentView(R.layout.activity_search_trip);
 
         deleteAllBtn = findViewById(R.id.deleteAllButton);
         backBtn = findViewById(R.id.backButton);
@@ -100,7 +87,7 @@ public class SearchTripActivity extends AppCompatActivity {
                         deleteTrip();
                     }
                 })
-                .setNeutralButton("CHANGE TEXT TO 'SHOW EXPENSES'", new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.dialog_show_expenses, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showExpenses();
@@ -112,13 +99,13 @@ public class SearchTripActivity extends AppCompatActivity {
     private void editTrip()
     {
         EditDialogView alert = new EditDialogView();
-        alert.showDialog(this, String.valueOf("CHANGE!!!!!!!"));
+        alert.showDialog(this, String.valueOf(R.string.dialog_custom_title));
 
     }
     private void showExpenses()
     {
         ExpensesDialogView alert = new ExpensesDialogView();
-        alert.showDialog(this, String.valueOf(R.string.dialog_custom_title));
+        alert.showDialog(this, String.valueOf(R.string.dialog_expense_title));
     }
     private void deleteTrip()
     {

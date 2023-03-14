@@ -256,12 +256,8 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         boolean value = false;
         try {
-            if (dateVal.parse(date1).before(new Date())) {
-                value = true;//If start date is before end date
-            }
-            else {
-                value = false; //If start date is after the end date
-            }
+            //If start date is after the end date
+            value = dateVal.parse(date1).before(new Date());//If start date is before end date
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }

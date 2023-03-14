@@ -162,14 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_TRIP_DESCRIPTION, tripDetailsModel.getDescription());
 
         long insert = db.insert(TRIP_DETAILS, null, cv);
-        if (insert == -1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return insert != -1;
     }
 
     public void deleteTripRecord()
@@ -290,13 +283,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_EXPENSE_COMMENTS, expensesModel.getComments());
 
         long insert = db.insert(EXPENSE_TABLE, null, cv);
-        if (insert == -1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return insert != -1;
     }
 }
