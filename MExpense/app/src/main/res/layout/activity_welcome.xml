@@ -7,47 +7,47 @@
     android:background="@color/wetasphalt_dark"
     tools:context=".WelcomeActivity">
 
-    <Button
-        android:id="@+id/newTripButton"
-        style="@style/Theme.AppCompat.Light.NoActionBar"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/newExpenseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="122dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="60dp"
         android:background="@color/blank"
+        android:onClick="goToPage"
+        android:text="@string/welcome_page_expense_add_btn"
+        android:textSize="24sp"
+        android:textColor="@color/clouds_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/newTripButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/blank"
+        android:textColor="@color/clouds_light"
         android:onClick="goToPage"
         android:text="@string/welcome_page_trip_add_btn"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/searchTripButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/searchTripButton"
-        style="@style/Theme.AppCompat.Light.NoActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="111dp"
-        android:layout_marginBottom="165dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="164dp"
         android:background="@color/blank"
+        android:textColor="@color/clouds_light"
         android:onClick="goToPage"
         android:text="@string/welcome_page_trip_search_btn"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/newExpenseButton"
-        style="@style/Theme.AppCompat.Light.NoActionBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="63dp"
-        android:background="@color/blank"
-        android:onClick="goToPage"
-        android:text="@string/welcome_page_expense_add_btn"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"

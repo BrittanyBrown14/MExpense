@@ -13,9 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +34,10 @@ public class AddExpenseActivity extends AppCompatActivity {
     TextView expenseTime;
     EditText expenseComments;
     EditText expenseInputID;
-    Button cancelBtn;
+    ImageButton cancelBtn;
 
     int tripID;
-    int Tempid;
+    int TempId;
 
     private final Calendar calender = Calendar.getInstance();
     private SimpleDateFormat currentTime;
@@ -105,8 +105,13 @@ public class AddExpenseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                new DatePickerDialog(AddExpenseActivity.this,date,
-                        calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
+                int dialogCount = 0;
+                if(dialogCount == 0)
+                {
+                    new DatePickerDialog(AddExpenseActivity.this,date,
+                            calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
+                    dialogCount++;
+                }
             }
         });
 
@@ -129,10 +134,9 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     private void saveExpense()
     {
-        double money = Double.parseDouble(expenseAmount.getText().toString());
-
-        if (!areFieldsEmpty(expenseInputID.getText().toString(), expenseAmount.getText().toString(), expenseDate.getText().toString(), expenseTime.getText().toString())
-                || expenseSpinner.getSelectedItem().toString().equals("---"))
+        String spinnerItem = expenseSpinner.getSelectedItem().toString();
+        if (!areFieldsEmpty(expenseInputID.getText().toString(), expenseCurrency.getText().toString(), expenseAmount.getText().toString(), expenseDate.getText().toString())
+               && !spinnerItem.equals("---"))
         {
             if (dateFormatValidation(expenseDate.getText().toString()))
             {
@@ -140,13 +144,14 @@ public class AddExpenseActivity extends AppCompatActivity {
                 {
                     if (otherType.getVisibility() == View.VISIBLE && otherType.getText().toString().isEmpty())
                     {
-                        Toast.makeText(this, "Please enter all the required details. ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.details_invalid, Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
                         ExpensesModel expensesModel;
                         if (getExpenseTripID(Integer.parseInt(expenseInputID.getText().toString())))
                         {
+                            double money = Double.parseDouble(expenseAmount.getText().toString());
                             tripID = UserDataDTO.getInstance().getExpensesModel().getExpenseTripID();
 
                             try
@@ -159,7 +164,6 @@ public class AddExpenseActivity extends AppCompatActivity {
                                         expenseSpinner.getSelectedItem().toString(),
                                         otherType.getText().toString(),
                                         money,
-                                        //Integer.parseInt(expenseAmount.getText().toString()),
                                         expenseDate.getText().toString(),
                                         currentTime.format(new Date()),
                                         expenseComments.getText().toString()
@@ -169,13 +173,13 @@ public class AddExpenseActivity extends AppCompatActivity {
                                     boolean success = databaseHelper.addExpenseRecord(expensesModel);
                                     databaseHelper.close();
                                     if (success) {
-                                        Toast.makeText(getApplicationContext(), "Your expense was saved ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), R.string.dialog_expense_saved, Toast.LENGTH_SHORT).show();
                                         clearText();
                                         Cancel();
                                     }
                                     else
                                     {
-                                        Toast.makeText(getApplicationContext(), "Your details were not saved. Please try again ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), R.string.dialog_expense_not_saved, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 catch (Exception ex)
@@ -184,28 +188,28 @@ public class AddExpenseActivity extends AppCompatActivity {
                                 }
                             }
                             catch (Exception ex) {
-                                Toast.makeText(getApplicationContext(), "error:" + ex, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.error_text + "" + ex, Toast.LENGTH_SHORT).show();
                             }
                         }
                         else
                         {
-                            Toast.makeText(AddExpenseActivity.this,"There is no trip with this name.\n Please Try Again.",Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddExpenseActivity.this,R.string.dialog_trip_null,Toast.LENGTH_LONG).show();
                         }
                     }
                 }
                 else
                 {
-                    Toast.makeText(this, "The date must not be before the current date.\n Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.date_current_invalid, Toast.LENGTH_SHORT).show();
                 }
             }
             else
             {
-                Toast.makeText(this, "The date is not valid. Please try again. \n Use this format: dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.date_format_invalid, Toast.LENGTH_SHORT).show();
             }
         }
         else
         {
-            Toast.makeText(this, "Please enter all the required details. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.details_invalid, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -230,7 +234,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     public boolean areFieldsEmpty(String string1, String string2, String string3, String string4)
     {
-        return string1.isEmpty()||string2.isEmpty()||string3.isEmpty() ||string4.isEmpty();
+        return string1.isEmpty()||string2.isEmpty()||string3.isEmpty()||string4.isEmpty();
     }
 
     public boolean dateFormatValidation(String dateToValidate) {
@@ -281,15 +285,15 @@ public class AddExpenseActivity extends AppCompatActivity {
             if (cursor.isFirst()) {
                 cursor.moveToFirst();
                 // Stores allTrips user info with entered email.
-                Tempid = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TRIP_ID));
+                TempId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TRIP_ID));
                 // Closing cursor.
                 //getExpenseTripID(Integer.parseInt(expenseInputID.getText().toString()));
                 cursor.close();
             }
         }
-        if(Tempid == id)
+        if(TempId == id)
         {
-            UserDataDTO.getInstance().getExpensesModel().setExpenseTripID(Tempid);
+            UserDataDTO.getInstance().getExpensesModel().setExpenseTripID(TempId);
             return true;
         }
         else {

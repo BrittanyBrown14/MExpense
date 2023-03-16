@@ -37,8 +37,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:hint="@string/expenses_tripID"
-                android:maxLength="3"
                 android:inputType="number"
+                android:maxLength="3"
                 android:textColor="@color/clouds_light"
                 android:textColorHint="@color/silver_hint" />
 
@@ -48,7 +48,7 @@
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:entries="@array/expense_types"
-                android:textColor="@color/clouds_light"/>
+                android:textColor="@color/clouds_light" />
 
             <EditText
                 android:id="@+id/expenseOtherText"
@@ -72,12 +72,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:maxLength="1"
+                android:digits="$€€£¥₩₹krzł￠"
                 android:hint="@string/expenses_currency"
                 android:inputType="text"
+                android:maxLength="1"
                 android:textColor="@color/clouds_light"
-                android:textColorHint="@color/silver_hint"
-                android:digits="$€€£¥₩₹krzł￠"/>
+                android:textColorHint="@color/silver_hint" />
 
             <EditText
                 android:id="@+id/expenseAmountText"
@@ -100,19 +100,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:maxLength="10"
+                android:focusable="false"
                 android:hint="@string/expenses_date"
                 android:inputType="date"
+                android:maxLength="10"
                 android:textColor="@color/clouds_light"
-                android:textColorHint="@color/silver_hint"
-                android:focusable="false"/>
+                android:textColorHint="@color/silver_hint" />
 
             <TextView
                 android:id="@+id/expenseTimeText"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:ems="5"
@@ -129,11 +130,11 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:hint="@string/expenses_comments"
-                android:textColor="@color/clouds_light"
-                android:textColorHint="@color/silver_hint"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical"
+                android:textColor="@color/clouds_light"
+                android:textColorHint="@color/silver_hint" />
 
         </LinearLayout>
     </ScrollView>
@@ -144,25 +145,27 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="17dp"
-        android:background="@color/amethyst_accent"
+        android:background="@color/wisteria_dark_accent"
         android:onClick="saveExpenseDialog"
         android:text="@string/trip_save"
         android:textColor="@color/clouds_light"
         android:textSize="20sp"
+        android:contentDescription="@string/desc_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:background="@color/amethyst_accent"
-        android:onClick="Cancel"
-        android:text="@string/trip_cancel"
-        android:textColor="@color/clouds_light"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        android:layout_marginTop="537dp"
+        android:layout_marginEnd="227dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/back_white"
+        android:contentDescription="@string/desc_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/saveButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

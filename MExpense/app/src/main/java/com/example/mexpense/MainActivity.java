@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     String TempPassword = "NOT_FOUND" ;
     static String TempFirstName = "NOT_FOUND" ;
     static String TempLastName = "NOT_FOUND" ;
-    static int Tempid = 0;
+    static int tempId = 0;
 
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqlDB;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Calling method to check final result ..
                 CheckFinalResult(password);
-                userDataSingleton.getUserLoginModel().setID(Tempid);
+                userDataSingleton.getUserLoginModel().setID(tempId);
             }
         }
         catch (Exception ex)
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         TempPassword = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASSWORD));
         TempFirstName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_FIRST_NAME));
         TempLastName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LAST_NAME));
-        Tempid = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
+        tempId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
     }
     public void CheckFinalResult(String password)
     {
@@ -97,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
             userDataSingleton.getUserLoginModel().setFirstName(TempFirstName);
             userDataSingleton.getUserLoginModel().setLastName(TempLastName);
 
-            Toast.makeText(MainActivity.this,"Login Successful " + TempFirstName + " " + TempLastName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,R.string.login_text, Toast.LENGTH_SHORT).show();
 
             startActivity(intent);
         }
         else {
-            Toast.makeText(MainActivity.this,"UserName or Password is Wrong, Please Try Again.",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,R.string.login_details_invalid,Toast.LENGTH_LONG).show();
         }
         TempPassword = "NOT_FOUND" ;
     }

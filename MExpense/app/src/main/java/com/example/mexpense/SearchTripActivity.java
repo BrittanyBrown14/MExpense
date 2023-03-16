@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class SearchTripActivity extends AppCompatActivity {
 
     ListView tripLV;
     Button deleteAllBtn;
-    Button backBtn;
+    ImageButton backBtn;
     EditText searchTxt;
 
     List<TripDetailsModel> allTrips;
@@ -81,7 +82,7 @@ public class SearchTripActivity extends AppCompatActivity {
                         editTrip();
                     }
                 })
-                .setNeutralButton(R.string.delete_data, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.delete_data, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteTrip();
@@ -92,8 +93,8 @@ public class SearchTripActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showExpenses();
                     }
-                })
-                .setNegativeButton(android.R.string.no, null).show();
+                }).show();
+
     }
 
     private void editTrip()
@@ -109,8 +110,17 @@ public class SearchTripActivity extends AppCompatActivity {
     }
     private void deleteTrip()
     {
-        databaseHelper.deleteTripRecord();
-        showAllTrips(databaseHelper.getAllTrips());
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_confirm_title)
+                .setMessage(R.string.delete_confirm_message)
+                .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        databaseHelper.deleteTripRecord();
+                        showAllTrips(databaseHelper.getAllTrips());
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     public void deleteAllTrips(View view)

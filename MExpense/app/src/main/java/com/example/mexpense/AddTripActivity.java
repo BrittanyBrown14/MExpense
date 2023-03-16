@@ -10,9 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -40,7 +40,7 @@ public class AddTripActivity extends AppCompatActivity {
     int isOverseasId;
     RadioButton riskAssessInput;
     RadioButton isOverseasInput;
-    Button cancelBtn;
+    ImageButton cancelBtn;
 
     private final Calendar calender = Calendar.getInstance();
     private int calText;
@@ -83,16 +83,26 @@ public class AddTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                new DatePickerDialog(AddTripActivity.this,date, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
-                calText = DepartureDate.getId();
+                int dialogCount = 0;
+                if(dialogCount == 0)
+                {
+                    new DatePickerDialog(AddTripActivity.this,date, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
+                    calText = DepartureDate.getId();
+                    dialogCount++;
+                }
             }
         });
         ReturnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                new DatePickerDialog(AddTripActivity.this,date, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
-                calText = ReturnDate.getId();
+                int dialogCount = 0;
+                if(dialogCount == 0)
+                {
+                    new DatePickerDialog(AddTripActivity.this,date, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
+                    calText = ReturnDate.getId();
+                    dialogCount++;
+                }
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -174,17 +184,17 @@ public class AddTripActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, R.string.date_invaild, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.date_invalid, Toast.LENGTH_SHORT).show();
                 }
             }
             else
             {
-                Toast.makeText(this,R.string.date_format_invaild , Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.date_format_invalid, Toast.LENGTH_SHORT).show();
             }
         }
         else
         {
-            Toast.makeText(this, R.string.details_invaild, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.details_invalid, Toast.LENGTH_SHORT).show();
         }
     }
 

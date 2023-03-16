@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class ExpensesDialogView {
         dialog.setContentView(R.layout.layout_expenses_dialog);
 
         expensesLV = dialog.findViewById(R.id.expensesListView);
-        Button cancelBtn = dialog.findViewById(R.id.cancelButton);
+        ImageButton cancelBtn = dialog.findViewById(R.id.cancelButton);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override

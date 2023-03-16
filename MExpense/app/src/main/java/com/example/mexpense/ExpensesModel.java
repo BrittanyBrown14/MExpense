@@ -36,7 +36,7 @@ public class ExpensesModel {
                 "\nAmount: " + Amount +
                 "\nExpense Date: " + Date +
                 "\nExpense Time: " + Time +
-                "\nComments " + Comments + "\n";
+                "\nComments: " + Comments + "\n";
     }
 
     public int getExpenseTripID() {
