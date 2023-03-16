@@ -229,7 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // All the database queries for adding, deleting and editing expenses
+    // All the database queries for adding expenses
     public List<ExpensesModel> getAllExpenses()
     {
         int tripID = UserDataDTO.getInstance().getTripDetailsModel().getTripID();

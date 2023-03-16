@@ -37,6 +37,7 @@ public class EditDialogView {
     private boolean isSuccess;
 
     public void showDialog(Activity activity, String msg){
+        // Initializing objects
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -47,6 +48,8 @@ public class EditDialogView {
         inputSpinner = dialog.findViewById(R.id.dialogInputSpinner);
 
         ImageButton cancelBtn = dialog.findViewById(R.id.cancel_Btn_dialog);
+
+        // When the EditText is clicked, the calender dialog is shown and the date can be chosen using that.
         editInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -63,6 +66,8 @@ public class EditDialogView {
                 }
             }
         });
+
+        // Sets the date picked when the dialog is created to today's date
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -76,22 +81,28 @@ public class EditDialogView {
 
             }
         };
+
+        // Closes the dialog
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
         dialog.show();
 
+        // Sets the layout and spinner entities.
         spinner = dialog.findViewById(R.id.dialog_spinner);
         ArrayAdapter spinnerAdapter = new ArrayAdapter(dialog.getContext(), R.layout.spinner_layout, dialog.getContext().getResources().getStringArray(R.array.edit_trip_options));
         spinner.setAdapter(spinnerAdapter);
 
+        // Sets the layout and spinner entities.
         Spinner transportSpinner = dialog.findViewById(R.id.dialogInputSpinner);
         ArrayAdapter spinnerTransportAdapter = new ArrayAdapter(dialog.getContext(), R.layout.spinner_layout, dialog.getContext().getResources().getStringArray(R.array.transport_options));
         transportSpinner.setAdapter(spinnerTransportAdapter);
 
+        // When an item is selected, the dbColumn name is set, EditText, Radio Group and Spinner visibility and focus is set
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("ResourceAsColor")
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -168,10 +179,10 @@ public class EditDialogView {
             @Override
             public void onClick(View v)
             {
-
                 DatabaseHelper databaseHelper = new DatabaseHelper(dialog.getContext(), "User_Login.db");
-
                 saveEdit();
+
+                // If there are no empty inputs, the edit made is saved to the db
                 if(isSuccess)
                 {
                     boolean success = databaseHelper.editTripRecord();
@@ -207,6 +218,8 @@ public class EditDialogView {
         else
             dialogRB = null;
 
+        // On item selected, the db column and new data is sent to the model to be changed in the db
+        // if it was successful, then it data is added to the database
         infoChange = editInput.getText().toString();
         switch(editOption)
         {

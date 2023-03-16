@@ -71,7 +71,7 @@
     <string name="dialog_edit_not_saved">Your edit was not saved.\nPlease try again </string>
     <string name="dialog_trip_saved">Your trip was saved </string>
     <string name="dialog_trip_not_saved">Your trip was not saved.\nPlease try again </string>
-    <string name="dialog_trip_null">There is no trip with this name.\n Please Try Again. </string>
+    <string name="dialog_trip_null">There is no trip with this ID.\n Please Try Again. </string>
     <string name="dialog_expense_saved">Your expense was saved </string>
     <string name="dialog_expense_not_saved">Your expense was not saved.\nPlease try again </string>
     <string name="details_invalid">Please enter all the required details.  </string>
@@ -118,6 +118,4 @@
         <item>Software Subscription</item>
         <item>Other</item>
     </string-array>
-
-
 </resources>

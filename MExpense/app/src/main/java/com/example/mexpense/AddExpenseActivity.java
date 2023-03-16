@@ -42,7 +42,6 @@ public class AddExpenseActivity extends AppCompatActivity {
     private final Calendar calender = Calendar.getInstance();
     private SimpleDateFormat currentTime;
 
-
     DatabaseHelper databaseHelper;
 
 
@@ -52,6 +51,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
 
+        // Object Initialisation
         databaseHelper = new DatabaseHelper(AddExpenseActivity.this, "User_Login.db");
 
         expenseSpinner = findViewById(R.id.expenseTripSpinner);
@@ -66,6 +66,8 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_layout, getResources().getStringArray(R.array.expense_types));
         expenseSpinner.setAdapter(adapter);
+
+        // Checks the spinner value to change the EditText visibility
         expenseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -83,6 +85,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+        // Sets the date picked when the dialog is created to today's date
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -93,6 +96,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         };
 
+        // Closes the dialog
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -101,6 +105,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+        // When the EditText is clicked, the calender dialog is shown and the date can be chosen using that.
         expenseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -115,10 +120,12 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+        // Setting the Expense time to the current time
         currentTime = new SimpleDateFormat("HH:mm");
         expenseTime.setText(getResources().getString(R.string.expenses_time) + " " +  currentTime.format(new Date()));
     }
 
+    // Save confirmation dialog
     public void saveExpenseDialog(View view)
     {
         new AlertDialog.Builder(this)
@@ -134,6 +141,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     private void saveExpense()
     {
+        // Various validations
         String spinnerItem = expenseSpinner.getSelectedItem().toString();
         if (!areFieldsEmpty(expenseInputID.getText().toString(), expenseCurrency.getText().toString(), expenseAmount.getText().toString(), expenseDate.getText().toString())
                && !spinnerItem.equals("---"))
@@ -148,12 +156,14 @@ public class AddExpenseActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        // Checks if the trip ID is in the database
                         ExpensesModel expensesModel;
                         if (getExpenseTripID(Integer.parseInt(expenseInputID.getText().toString())))
                         {
                             double money = Double.parseDouble(expenseAmount.getText().toString());
                             tripID = UserDataDTO.getInstance().getExpensesModel().getExpenseTripID();
 
+                            //Adds all the information as new model object
                             try
                             {
                                 expensesModel = new ExpensesModel
@@ -170,6 +180,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                                     );
                                 try
                                 {
+                                    //Adds all the information to the database
                                     boolean success = databaseHelper.addExpenseRecord(expensesModel);
                                     databaseHelper.close();
                                     if (success) {
@@ -214,12 +225,14 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     }
 
+    // Takes the user to the Welcome page
     public void Cancel()
     {
         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivity(intent);
     }
 
+    // Clears all the text from the field
     public void clearText()
     {
         expenseSpinner.setSelection(0);
@@ -232,11 +245,13 @@ public class AddExpenseActivity extends AppCompatActivity {
         expenseComments.setText("");
     }
 
+    // Checks if all the strings are empty and Returns the value as a Boolean
     public boolean areFieldsEmpty(String string1, String string2, String string3, String string4)
     {
         return string1.isEmpty()||string2.isEmpty()||string3.isEmpty()||string4.isEmpty();
     }
 
+    // Checks the format of the date that is inputted
     public boolean dateFormatValidation(String dateToValidate) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -248,11 +263,12 @@ public class AddExpenseActivity extends AppCompatActivity {
             return true;
 
         } catch (Exception exception) {
-            //Handle exception
+
         }
         return false;
     }
 
+    // Checks if the start date is after the end date
     private boolean dateTimeValidation(String date1)
     {
         SimpleDateFormat dateVal = new SimpleDateFormat("dd/MM/yyyy");
@@ -260,21 +276,21 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         boolean value = false;
         try {
-            //If start date is after the end date
-            value = dateVal.parse(date1).before(new Date());//If start date is before end date
+            value = dateVal.parse(date1).before(new Date());
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
         return value;
     }
 
-    private void updateText(){
-        String myFormat="dd/MM/yyyy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.UK);
+    // Updates the EditText to match the date chosen on the calender dialog
+    private void updateText()
+    {
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         expenseDate.setText(dateFormat.format(calender.getTime()));
-
     }
 
+    // Gets the expense trip ID from the db to check against the ID inputted by the user
     public boolean getExpenseTripID(int id)
     {
         // Opening SQLite database write permission.

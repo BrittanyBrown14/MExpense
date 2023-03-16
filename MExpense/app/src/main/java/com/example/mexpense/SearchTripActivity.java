@@ -33,6 +33,7 @@ public class SearchTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_trip);
 
+        // Initializing objects
         deleteAllBtn = findViewById(R.id.deleteAllButton);
         backBtn = findViewById(R.id.backButton);
         tripLV = findViewById(R.id.tripListView);
@@ -44,6 +45,9 @@ public class SearchTripActivity extends AppCompatActivity {
 
         lvArray = new ArrayAdapter(this, R.layout.spinner_layout, allTrips);
         tripLV.setAdapter(lvArray);
+
+        // When an item is clicked, the TripID is gotten and is set as the TripID in the model
+        // An alert dialog is shown so the user can choose to edit a trip, delete a trip or see the expenses linked to that trip
         tripLV.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -56,6 +60,7 @@ public class SearchTripActivity extends AppCompatActivity {
             }
         });
 
+        // As the user types, the ListView is filtered to match what the user is typing
         searchTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
@@ -72,6 +77,8 @@ public class SearchTripActivity extends AppCompatActivity {
             }
         });
     }
+
+    // The alert dialog where the user can choose to edit a trip, delete a trip or see the trip expenses
     private void EditOrDelete ()
     {
         new AlertDialog.Builder(this)
@@ -97,17 +104,22 @@ public class SearchTripActivity extends AppCompatActivity {
 
     }
 
+    // Opens a custom dialog to handle editing the trip
     private void editTrip()
     {
         EditDialogView alert = new EditDialogView();
         alert.showDialog(this, String.valueOf(R.string.dialog_custom_title));
 
     }
+
+    // Opens a custom dialog to show the user the expenses connected to the trip
     private void showExpenses()
     {
         ExpensesDialogView alert = new ExpensesDialogView();
         alert.showDialog(this, String.valueOf(R.string.dialog_expense_title));
     }
+
+    // Shows a confirmation dialog, confirming that the user wants to delete this trip
     private void deleteTrip()
     {
         new AlertDialog.Builder(this)
@@ -123,6 +135,7 @@ public class SearchTripActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
+    // Shows a confirmation dialog, confirming that the user wants to delete all trips
     public void deleteAllTrips(View view)
     {
         new AlertDialog.Builder(this)
@@ -138,11 +151,13 @@ public class SearchTripActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
+    // Populates the listview and shows the user all the trips
     private void showAllTrips(List<TripDetailsModel> allTrips) {
         arrayAdapter = new ArrayAdapter<TripDetailsModel>(SearchTripActivity.this, R.layout.spinner_layout, allTrips);
         tripLV.setAdapter(arrayAdapter);
     }
 
+    // Takes the user back to the Welcome page
     public void back(View view)
     {
         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);

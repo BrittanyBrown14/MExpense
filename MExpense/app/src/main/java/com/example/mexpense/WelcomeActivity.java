@@ -19,14 +19,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
     String FirstName, LastName;
     int userID;
-    TripDetailsModel tripDetailsModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        tripDetailsModel = new TripDetailsModel();
 
+        // Object initialization
         addTripBtn = findViewById(R.id.newTripButton);
         addExpenseBtn = findViewById(R.id.newExpenseButton);
         searchTripBtn = findViewById(R.id.searchTripButton);
@@ -43,6 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         try
         {
+            // Depending on which button is pressed, it will take the user to the corresponding page and set the
+            // the current userID as the TripUserID
             switch (view.getId())
             {
                 case R.id.newTripButton:

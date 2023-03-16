@@ -28,6 +28,7 @@ public class ExpensesDialogView {
         expensesLV = dialog.findViewById(R.id.expensesListView);
         ImageButton cancelBtn = dialog.findViewById(R.id.cancelButton);
 
+        // Closes the dialog
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +37,7 @@ public class ExpensesDialogView {
         });
         dialog.show();
 
+        // Gets the information from the database and populate the listview with that data
         DatabaseHelper databaseHelper = new DatabaseHelper(dialog.getContext(), "User_Login.db");
         allExpenses = databaseHelper.getAllExpenses();
 
