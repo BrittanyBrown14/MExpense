@@ -24,7 +24,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/wisteria_dark_accent"
+        android:background="@drawable/button_layout"
         android:text="@string/trip_save"
         android:textColor="@color/clouds_light" />
 

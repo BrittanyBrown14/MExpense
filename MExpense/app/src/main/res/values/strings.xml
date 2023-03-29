@@ -16,6 +16,7 @@
     <string name="welcome_page_expense_add_btn">Add new expenses</string>
 
     <!--For add trip details page-->
+    <string name="trip_page_name">Add new trip  </string>
     <string name="trip_name">Trip Name: *</string>
     <string name="trip_destination">Trip Destination: *</string>
     <string name="trip_departure_date">Departure Date: 01/01/1900 *</string>
@@ -30,6 +31,7 @@
     <string name="trip_cancel">Cancel</string>
 
     <!--    For search trips page-->
+    <string name="search_page_name">Search  </string>
     <string name="reset_database">Delete all trips</string>
     <string name="search_btn">Type to Search</string>
     <string name="search_data">Search all data</string>
@@ -44,6 +46,7 @@
     <string name="delete_back">Back</string>
 
     <!--    For add expenses page-->
+    <string name="expenses_page_name">Add new expense </string>
     <string name="expenses_otherType">Please specify other expense type *</string>
     <string name="expenses_tripID">Please enter your Trip ID *</string>
     <string name="expenses_currency">Expense currency *</string>

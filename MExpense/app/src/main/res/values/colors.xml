@@ -14,7 +14,7 @@
     <color name="silver_hint">#BDC3C7</color>
     <color name="amethyst_accent">#9B59B6</color>
     <color name="wisteria_dark_accent">#8E44AD</color>
+    <color name="wisteria">#C28ED8</color>
+    <color name="amethyst">#A869C3</color>
     <color name="blank">#0000ffff</color>
-
-
 </resources>

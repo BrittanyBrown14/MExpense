@@ -17,12 +17,14 @@
         android:layout_marginBottom="72dp"
         android:clickable="true"
         android:textColor="@color/clouds_light"
+        android:fadeScrollbars="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchText"
         app:layout_constraintVertical_bias="0.0" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteAllButton"
@@ -31,34 +33,33 @@
         android:layout_marginStart="280dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="25dp"
-        android:background="@color/wisteria_dark_accent"
+        android:background="@drawable/button_layout"
         android:onClick="deleteAllTrips"
+        android:padding="12dp"
         android:text="@string/reset_database"
         android:textColor="@color/clouds_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripListView"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintVertical_bias="0.714" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/backButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="220dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/back_white"
         android:contentDescription="@string/desc_back"
         android:onClick="back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAllButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripListView"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/searchText"
